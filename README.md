@@ -1,4 +1,7 @@
 # README #
 
-Please refer to the 
-[wiki](https://bitbucket.org/kartik7gupta/Physics%20Lab%20Booking%20Project/wiki/Home) to find out more about the project.
+# Physics Laboratory Booking System
+
+  - Completed as part of my Software development project
+  - Coded in Ruby on Rails
+  - Integrated with SQLite
