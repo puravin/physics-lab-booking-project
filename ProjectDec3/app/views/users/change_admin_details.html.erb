@@ -1,0 +1,29 @@
+<h1>Change Admin Password</h1>
+
+<%= form_tag("update_details", :method => "post") do |f| %>
+  <% if not params[:error].nil? %>
+    <div id="errorExplanation">
+      <h2><%= params[:error] %></h2>
+    </div>
+  <% end %>
+  
+  <% if params[:notice] %>
+    <p class="notice"><%= params[:notice] %></p>
+  <% end %>
+  
+  <div class="field">
+    <%= label_tag(:current_password, "Current password:") %>
+    <%= password_field_tag(:current_password) %>
+    <br />
+    <%= label_tag(:new_password, "New password:") %>
+    <%= password_field_tag(:new_password) %>
+    <br />
+    <%= label_tag(:confirm_password, "Confirm password:") %>
+    <%= password_field_tag(:confirm_password) %>
+  </div>
+  
+  <div class="actions">
+    <%= submit_tag("Update") %>
+  </div>
+<% end %>
+

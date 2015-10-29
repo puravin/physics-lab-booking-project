@@ -1,0 +1,31 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>Experiment:</b>
+  <%= @experiment_availability.experiment.id %>:
+  <%= @experiment_availability.experiment.name %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @experiment_availability.date %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @experiment_availability.time %>
+</p>
+
+<p>
+  <b>Is available:</b>
+  <%= @experiment_availability.is_available ? 'Yes' : 'No' %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @experiment_availability.comments %>
+</p>
+
+
+<%= link_to 'Edit', edit_experiment_availability_path(@experiment_availability) %> |
+<%= link_to 'Back', experiment_availabilities_path %>

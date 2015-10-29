@@ -1,0 +1,38 @@
+<h1>User Permissions</h1>
+
+<%= form_tag("update_permission", :method => "post") do |f| %>
+  <% if not params[:error].nil? %>
+    <div id="errorExplanation">
+      <h2><%= params[:error] %></h2>
+    </div>
+  <% end %>
+  
+  <% if params[:notice] %>
+    <p class="notice"><%= params[:notice] %></p>
+  <% end %>
+  
+  <table>
+    <tr class='list_head'>
+      <th>Item</th>
+      <th>Admin</th>
+      <th>Tutor</th>
+      <th>Student</th>
+    </tr>
+
+    <% @permissions.each do |permission| %>
+      <tr>
+        <td><%= permission.display_text %></td>
+        <td><%= check_box_tag(permission.class_name + "_admin", value = "true", checked = permission.admin) %></td>
+        <td><%= check_box_tag(permission.class_name + "_tutor", value = "true", checked = permission.tutor) %></td>
+        <td><%= check_box_tag(permission.class_name + "_student", value = "true", checked = permission.student) %></td>
+      </tr>
+    <% end %>
+  </table>
+  
+  <div class="actions">
+    <%= submit_tag("Update Permission") %>
+  </div>
+<% end %>
+
+
+

@@ -1,0 +1,34 @@
+<h1>Bookings Summary</h1>
+
+<table>
+<% for i in 0 .. (@experiment.length - 1) %>
+  <% if (i % 10) == 0 %>
+  	<tr class='list_head'>
+		<th>Experiment</th>
+    <% @dates.each do |date| %>
+      <th><%= date.strftime("%a %d %b") %></th>
+    <% end %>
+	</tr>
+  <% end %>
+  
+  <tr>
+    <td><%= @experiment[i].exp_num %>: <%= @experiment[i].name %></td>
+  <% @calendar[i].each do |c| %>
+    <% if c.nil? %>
+    <td>0</td>
+    <% else %>
+    <td>
+      <%= c.length %><br />
+      <% c.each do |b| %>
+        <%= link_to b.student.last_name, :action => "view_experiment", :controller => "make_booking", :experiment_id => b.experiment, :student_id => b.student %>
+      <% end %>
+    </td>
+    <% end %>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+<p>
+  <%= link_to "Export Student Bookings", :controller => "csv_export", :action => "booking" %>
+</p>

@@ -1,0 +1,34 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>Username:</b>
+  <%= @tutor.username %>
+</p>
+
+<p>
+  <b>First name:</b>
+  <%= @tutor.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @tutor.last_name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @tutor.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @tutor.phone %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @tutor.comments %>
+</p>
+
+<%= link_to 'Edit', edit_tutor_path(@tutor) %> |
+<%= link_to 'Back', tutors_path %>

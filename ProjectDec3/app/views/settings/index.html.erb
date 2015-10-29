@@ -1,0 +1,45 @@
+<h1>Settings</h1>
+
+<% if not params[:error].nil? %>
+  <div id="errorExplanation">
+    <h2><%= params[:error] %></h2>
+  </div>
+<% end %>
+
+<% if params[:notice] %>
+  <p class="notice"><%= params[:notice] %></p>
+<% end %>
+  
+<%= form_tag("update_setting", :method => "post") do |f| %>
+  <h2>Booking</h2>
+  
+  <div class="field" style = "display: none;">
+    <%= label_tag(:max_booking, "Maximum number of experiments booked per week:") %><br />
+    <%= number_field_tag(:max_booking, @max_booking) %>
+  </div>
+  <div class="field">
+    <%= label_tag(:min_day_cancel_booking, "Days prior a student can no longer cancel a booking:") %><br />
+    <%= number_field_tag(:min_day_cancel_booking, @min_day_cancel_booking) %>
+  </div>
+  <div class="field">
+  <%if @min_day_cancel_booking == 5%>
+    <%= label_tag(:min_day_cancel_booking, "Allow Student to cancel bookings:") %><br />
+    <%= label_tag("Yes") %>
+    <%= radio_button_tag(:min_day_cancel_booking, 5, checked = true) %>
+    <%= label_tag("No") %>
+    <%= radio_button_tag(:min_day_cancel_booking, 0) %>
+    <br>
+    <br>
+    <em>When you save, 'Yes' assigns "Days prior ..." to 5 and 'No' assigns "Days prior ..." to 0.</em>
+	<% else %>
+	 <%= label_tag(:min_day_cancel_booking, "Allow Student to cancel bookings:") %><br />
+    <%= label_tag("Yes") %>
+    <%= check_box_tag(:min_day_cancel_booking, 5) %>
+    <%= label_tag("No") %>
+    <%= check_box_tag(:min_day_cancel_booking, 0, checked = true) %>
+  </div>
+  <%end %>
+  <div class="actions">
+    <%= submit_tag("Save") %><br />
+  </div>
+<% end %>

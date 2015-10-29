@@ -1,0 +1,15 @@
+<h1>Book Experiment</h1>
+
+<table>
+  <tr><td>Experiment number: </td>   <td><%= @experiment.exp_num %></td></tr>
+  <tr><td>Name: </td>                <td><%= @experiment.extended_name.blank? ? @experiment.name : @experiment.extended_name %></td></tr>
+  <tr><td>Number of sessions: </td>  <td><%= @experiment.num_sessions %></td></tr>
+  <tr><td>Experiment weight: </td>   <td><%= @experiment.weight %></td></tr>
+  <tr><td>Allow double booked?: </td><td><%= @experiment.double_booked ? "Yes" : "No" %></td></tr>
+<% if not @experiment.comments.blank? %>
+  <tr><td>Comments:</td>             <td><%= @experiment.comments %></td></tr>
+<% end %>
+</table>
+
+<%= link_to "Back to experiment", :action => "view_experiment", :id => @experiment %><br />
+<%= link_to "List all experiment", :action => "index" %>

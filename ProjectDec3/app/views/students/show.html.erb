@@ -1,0 +1,88 @@
+<% if not params[:error].nil? %>
+  <div id="errorExplanation">
+    <h2><%= params[:error] %></h2>
+  </div>
+<% end %>
+
+<% if params[:notice] %>
+  <p class="notice"><%= params[:notice] %></p>
+<% end %>
+
+<p>
+  <b>SID:</b>
+  <%= @student.sid %>
+</p>
+
+<p>
+  <b>First name:</b>
+  <%= @student.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @student.last_name %>
+</p>
+
+<p>
+  <b>CP:</b>
+  <%= @student.cp %>
+</p>
+
+<p>
+  <b>Requirements:</b>
+  <ul>
+    <li>Experiment: <%= @requirement.experiment %></li>
+    <li>Report: <%= @requirement.report %></li>
+    <li>Poster: <%= @requirement.poster %></li>
+    <li>Talk: <%= @requirement.talk %></li>
+    <li>Assignment: <%= @requirement.assignment %></li>
+  </ul>
+</p>
+
+<p>
+  <b>Comments:</b><br />
+  <%= @student.comments %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @student.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @student.phone %>
+</p>
+
+<p><b>Semesters:</b></p>
+<table>
+  <tr class="list_head">
+    <td>Semester</td>
+    <td>Year</td>
+    <td>Action</td>
+  </tr>
+<% if @student.student_semesters.empty? %>
+  <tr><td colspan="3">This student is not added to any semester.</td></tr>
+<% else %>
+  <% for sem in @student.student_semesters %>
+  <tr>
+    <td>Semester <%= sem.semester %></td>
+    <td><%= sem.year %></td>
+    <td><%= button_to "Remove", sem, :confirm => "Are you sure?", :method => :delete %></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
+
+<%= form_for :student_semester, :url => student_semesters_path do |f| %>
+  <p class='indent'>
+  Add semester: <%= select( "student_semester", "semester", @semesters, {:selected => @semester}) %>
+  <%= f.select :year, @years, {:selected => @year} %>
+  <%= f.hidden_field :student_id, :value => @student.id %>
+  <%= submit_tag "Add" %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Back', students_path %>
+

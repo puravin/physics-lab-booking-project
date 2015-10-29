@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Third Year Lab Booking System</title>
+<!-- START:stylesheet -->
+  <%= stylesheet_link_tag "scaffold" %>
+  <%= stylesheet_link_tag "lab3b", :media => "all" %>
+<!-- END:stylesheet -->
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+
+<body id="document-body">
+  <div id="page-title">
+  <div id = "logo">
+		<img src="http://sydney.edu.au/images/common/university_sydney_logo.gif">
+	</div>
+	<h3 id="header">
+    Third Year Lab Booking System - <%= session[:username] %>
+    <% if session[:role] == "admin" %>
+      (Admin)
+    <% elsif session[:role] == "tutor" %>
+      (Tutor)
+    <% elsif session[:role] == "student" %>
+      (Student)
+    <% end %>
+	</h3>
+  </div>
+  <div id="page-content">
+    <div id="side">
+      <% if not @menu_list.nil? %>
+        <% @menu_list.each do |menu| %>
+          <p><%= link_to menu.display_text, :controller => menu.menu_controller, :action => menu.menu_action %></p>
+        <% end %>
+      <% end %>
+    </div>
+    <div id="main">
+      <%= yield %>
+      <!-- <%= debug(params) if Rails.env.development? %> -->
+    </div>
+  </div>
+</body>
+</html>
+
