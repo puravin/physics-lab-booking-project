@@ -1,5 +1,0 @@
-The Third Year Lab Booking System requires Rails v3.x and advises using Ruby 1.9 or greater.
-
-Run "rake db:setup" and then "rails server" in the application root to run the system.
-
-The default administrator credentials are 'admin'/'admin'.  Please change the password before the system is in use.
