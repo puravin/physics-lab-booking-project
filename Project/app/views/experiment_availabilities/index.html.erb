@@ -1,0 +1,28 @@
+<h1>Change Experiment Availability</h1>
+
+<div id='list'>
+<table>
+  <tr class='list_head'>
+    <th>Exp</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Available</th>
+    <th colspan='3'>Action</th>
+  </tr>
+
+<% @experiment_availabilities.each do |e| %>
+  <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+    <td><%= e.experiment_id %></td>
+    <td><%= e.date %></td>
+    <td><%= e.time %></td>
+    <td align='center'><%= e.is_available ? "Y" : "N" %></td>
+    <td><%= link_to 'Show', e %></td>
+    <td><%= link_to 'Edit', edit_experiment_availability_path(e) %></td>
+    <td><%= button_to 'Delete', e, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<br />
+
+<%= link_to 'Add change to experiment availability', new_experiment_availability_path %>

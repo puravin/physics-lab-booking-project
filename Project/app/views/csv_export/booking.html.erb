@@ -1,0 +1,68 @@
+<% if not params[:error].nil? %>
+  <div id="errorExplanation">
+    <h2><%= params[:error] %></h2>
+  </div>
+<% end %>
+
+<% if params[:notice] %>
+  <p class="notice"><%= params[:notice] %></p>
+<% end %>
+
+<h1>Export Student Bookings</h1>
+
+<%= form_tag "/csv_export/booking" do %>
+  Semester:
+  <%= select_tag "semester", options_for_select(@semesters, {:selected => @semester}) %>
+  <%= select_tag "year", options_for_select(@years, {:selected => @year}) %>
+  <%= button_to "Update" %>
+<% end %>
+
+<br />
+
+<%= form_tag "/csv_export/export_booking" do %>
+  Export bookings as CSV file
+  <%= hidden_field_tag "semester", @semester %>
+  <%= hidden_field_tag "year", @year %>
+  <%= button_to "Export" %>
+<% end %>
+
+<table>
+  <tr class='list_head'>
+    <th rowspan='2'>SID</th>
+    <th rowspan='2'>First name</th>
+    <th rowspan='2'>Last name</th>
+    <th rowspan='2'>Credit points</th>
+    <th rowspan='2'>Experiment requirement</th>
+    <th rowspan='2'>Booked sessions</th>
+    <th colspan='3'>Bookings</th>
+  </tr>
+  <tr class='list_head'>
+    <th>Exp num</th>
+    <th>Exp name</th>
+    <th>Booked date</th>
+  </tr>
+
+  <% @result.each do |row| %>
+    <tr>
+      <% for i in 0..5 do %>
+        <td rowspan='<%= row[5] > 0 ? row[5] : 1 %>'><%= row[i].to_s %></td>
+      <% end %>
+      <% if row[5] == 0 %>
+        <td colspan='3'>No experiment is booked</td>
+      <% else %>
+        <td><%= row[6][0][0] %></td>
+        <td><%= row[6][0][1] %></td>
+        <td><%= row[6][0][2] %></td>
+      <% end %>
+    </tr>
+    <% if row[6].length > 1 %>
+      <% for i in 1..(row[5] - 1) do %>
+        <tr>
+          <td><%= row[6][i][0] %></td>
+          <td><%= row[6][i][1] %></td>
+          <td><%= row[6][i][2] %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>

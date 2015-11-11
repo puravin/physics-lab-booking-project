@@ -1,0 +1,73 @@
+<h1>My Marks</h1>
+
+<p><b>Credit Point: </b> <%= @student.cp %>
+
+<h3>Current Semester</h3>
+
+<table>
+  <tr class='list_head'>
+    <th colspan='2'>Experiments</th>
+    <th colspan='5'>Marks</th>
+  </tr>
+  <tr class='list_head'>
+    <th>Num</th>
+    <th>Name</th>
+    <th>Logbook</th>
+    <th>Report</th>
+    <th>Poster</th>
+    <th>Talk</th>
+    <th>Assignment</th>
+  </tr>
+    
+<% if @current_mark.length == 0 %>
+  <tr>
+    <td colspan='7'>No experiment has been marked</td>
+  </tr>
+<% else %>
+
+  <% @current_mark.each do |m| %>
+    <tr>
+      <td><%= m[0].exp_num %></td>
+      <td><%= m[0].name %></td>
+    <% for i in 1 .. 5 %>
+      <td><%= m[i] %></td>
+    <% end %>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+<h3>Previous Semester</h3>
+
+<table>
+  <tr class='list_head'>
+    <th colspan='2'>Experiments</th>
+    <th colspan='5'>Marks</th>
+  </tr>
+  <tr class='list_head'>
+    <th>Num</th>
+    <th>Name</th>
+    <th>Logbook</th>
+    <th>Report</th>
+    <th>Poster</th>
+    <th>Talk</th>
+    <th>Assignment</th>
+  </tr>
+    
+<% if @previous_mark.length == 0 %>
+  <tr>
+    <td colspan='7'>No experiment has been marked</td>
+  </tr>
+<% else %>
+
+  <% @previous_mark.each do |m| %>
+    <tr>
+      <td><%= m[0].exp_num %></td>
+      <td><%= m[0].name %></td>
+    <% for i in 1 .. 5 %>
+      <td><%= m[i] %></td>
+    <% end %>
+    </tr>
+  <% end %>
+<% end %>
+</table>

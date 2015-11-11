@@ -1,0 +1,54 @@
+<h1>Book Experiment</h1>
+
+<% if session[:role] == "student" %>
+<div class="info">
+  <span class="data">Number of experiments booked in this week</span> : <span class="data-num"><%= @weekly_booking %></span>
+</div>
+<div class="info">
+  <span class="data">Number of experiments booked this semester</span> : <span class="data-num"> <%= @semester_booking %></span><br><br>
+  <span class="data">Number of sessions booked</span> : <span class="data-num"> <%= @current_sessions %></span><br><br>
+  <span class="data">Maximum number of sessions</span> : <span class="data-num"> <%= @max_semester_booking %></span>
+</div>
+<% else %>
+<p>Booking experiment for <%= @student.first_name %> <%= @student.last_name %> (SID: <%= @student.sid %>)</p>
+<% end %>
+
+<div id='list'>
+  <table>
+    <tr class='list_head'>
+      <th>Exp num</th>
+      <th>Name</th>
+      <th>Sessions</th>
+      <th>Allow Double Booked?</th>
+      <!-- Admin displays students experiment status -->
+      <% if session[:role] == "admin" %>
+        <th>Status</th>
+      <% end %>
+      <th>Action</th>
+    </tr>
+
+    <% if @experiments.empty? %>
+      <tr>
+        <td colspan="6">No experiment found</td>
+      </tr>
+    <% else %>
+      <% i = 0 %>
+      <% @experiments.each do |experiment| %>
+        <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+          <td><%= experiment.exp_num %></td>
+          <td><%= experiment.extended_name.blank? ? experiment.name : experiment.extended_name %></td>
+          <td style='text-align: center'><%= experiment.num_sessions %></td>
+          <td style='text-align: center'><%= if experiment.double_booked; 'Y'; else; 'N'; end %></td>
+          <!-- Admin displays students experiment status -->
+          <% if session[:role] == "admin" %>
+            <td><%= @experiment_status[i] %></td>
+          <% end %>
+          <% i += 1 %>
+          <td><%= link_to 'Book Experiment', :action => "view_experiment", :experiment_id => experiment, :student_id => @student %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+
+<p><i>A double-booked experiment can have 2 students sharing the same experiment setup at the same time.</i></p>

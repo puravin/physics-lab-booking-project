@@ -1,0 +1,28 @@
+<% if not params[:error].nil? %>
+  <div id="errorExplanation">
+    <h2><%= params[:error] %></h2>
+  </div>
+<% end %>
+
+<% if params[:notice] %>
+  <p class="notice"><%= params[:notice] %></p>
+<% end %>
+
+<h1>Import Student List</h1>
+
+<p>The CSV file must contain the following column:</p>
+<ul>
+  <li>SID <mark > (needs to be unique)</mark> </li>
+  <li>Credit point</li>
+  <li>First name</li>
+  <li>Last name</li>
+  <li>Email <mark >(needs to be unique)</mark ></li>
+</ul>
+<p>Note that first row of the file (the heading row) will be ignored</p>
+
+<%= form_tag "/csv_import/upload_student_list", :multipart => true, :method => "post" do %>
+  Please choose a file to upload: <br />
+  <%= file_field_tag "csv" %>
+  
+  <p><%= submit_tag "Upload CSV" %></p>
+<% end %>

@@ -1,0 +1,59 @@
+<h1>Edit Student Mark</h1>
+
+<%= form_tag("save_mark", :method => "post") do |f| %>
+  <% if not params[:error].nil? %>
+    <div id="errorExplanation">
+      <h2><%= params[:error] %></h2>
+    </div>
+  <% end %>
+  
+  <% if params[:notice] %>
+    <p class="notice"><%= params[:notice] %></p>
+  <% end %>
+  
+  <table>
+    <tr><td>SID:        </td><td><%= @student.sid %></td></tr>
+    <tr><td>First Name: </td><td><%= @student.first_name %></td></tr>
+    <tr><td>Last Name:  </td><td><%= @student.last_name %></td></tr>
+    <tr><td>CP:         </td><td><%= @student.cp %></td></tr>
+  </table>
+
+  <%= hidden_field_tag "student_id", @student.id %>
+  
+  <h2>Marks</h2>
+  <table>
+    <tr class='list_head'>
+      <th>Experiment</th>
+      <th>Logbook Mark</th>
+      <th>Report Mark</th>
+      <th>Poster Mark</th>
+      <th>Talk Mark</th>
+      <th>Assignment Mark</th>
+    </tr>
+    <% if @experiment.length == 0 %>
+      <tr>
+        <td colspan='6'>No experiment has been booked</td>
+      </tr>
+    <% else %>
+      <% for i in 0 .. (@experiment.length - 1) do %>
+        <tr>
+          <td><%= @experiment[i].exp_num %>: <%= @experiment[i].name %></td>
+          <% for j in 0 .. 4 %>
+            <td>
+              <% if @mark_table[i][j][0] %>
+                <%= number_field_tag "mark_" + @experiment[i].exp_num.to_s + "_" + j.to_s, @mark_table[i][j][1], :step => "any" %>
+              <% end %>
+              <%= @mark_table[i][j][2] %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  
+  <div class="actions">
+    <%= submit_tag("Save") %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', :action => 'index' %>
